@@ -16,7 +16,7 @@
     h1{
       margin:10px;
       font-size:3rem;
-      /* text-align:center; */
+
     }
     h2{
       text-align:center;
@@ -26,15 +26,13 @@
       display:grid;
       height:400px;
       width:400px;
-      /* margin:auto; */
       grid-template-columns: auto auto auto;
       
     }
-    #Ngame{
+    #Newgame{
     color: azure;
     font-size:2.3rem;
     border-radius:12px;
-    /* margin-left:40%; */
     margin-top:20px;
     background-color: #27391C;
     }
@@ -52,6 +50,7 @@
     <div id="container">
      <h1>Tik Tak Toe</h1>
       <div id ="bt">
+        <button try="1"></button>
         <button try="2"></button>
         <button try="3"></button>
         <button try="4"></button>
@@ -60,33 +59,32 @@
         <button try="7"></button>
         <button try="8"></button>
         <button try="9"></button>
-        <button try="1"></button>
       </div>
-      <button id="Ngame" onclick="location.reload()">New game</button>
+      <button id="Newgame" onclick="location.reload()">New game</button>
     </div>
   </body>
   <script>
     let h = document.querySelector("h1");
     let bd=document.querySelector("#bt");
-    let Ngame= document.querySelector("#newGame");
+    let Newgame= document.querySelector("#newGame");
     
    
     
     let turn =true;
     let player1=[];
     let player2=[];
-    let win=[ [1,2,3],[1,5,9],[1,4,7],[2,5,8],[3,6,9],[3,5,7],[4,5,6],[7,8,9] ];
+    let win=[ [1,2,3],[1,4,7],[1,5,9],[2,5,8],[3,6,9],[3,5,7],[4,5,6],[7,8,9] ];
     let check= 0;
     
     
-     function addh(player)
+     function add(player)
     {
-    let hh= document.createElement("h2");
-          hh.innerHTML=`${player} is win`
-          hh.style.margin="20px"
-          hh.style.color="#FFEB00"
-          hh.style.fontSize="2.5rem";
-          h.after(hh);
+    let h2= document.createElement("h2");
+          h2.innerHTML=`${player}`
+          h2.style.margin="20px"
+          h2.style.color="#FFEB00"
+          h2.style.fontSize="2.5rem";
+          h.after(h2);
     }
     
     function checkWin(e,player){
@@ -117,16 +115,16 @@
         turn = !turn;
         e.target.disabled= true;
         e.target.style.color="red";
-        player1.push(Number(e.target.attributes.try.value));
+        player1.push(Number(e.target.getAttribute("try")));
         check++;
-        if( check > 2){
+        if(check == 9){
+          add("Match is draw.")
+        }
+        else{
           if(checkWin(e,player1) ){
           e.target.parentElement.style.pointerEvents ="none";
-          addh("player 1 (X)")
+          add("player 1 (X) is win.")
           } 
-          console.log(!turn);
-          
-          
         } 
         
       }else if ( ( turn == false  && e.target.type=="submit")){
@@ -134,11 +132,14 @@
         turn = !turn;
         e.target.disabled= true;
         e.target.style.color="red";
-         player2.push(Number(e.target.attributes.try.value));
+         player2.push(Number(e.target.getAttribute("try")));
          check++;
-        if(check >2 ) {
+         if(check == 9 ){
+          add("Match is draw.")
+         }
+        else {
           if ( checkWin(e,player2) ) { 
-          addh("player 2 ( O )");
+          add("player 2 ( O ) is win.");
           e.target.parentElement.style.pointerEvents ="none";
           }
         }

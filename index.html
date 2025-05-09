@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <style>
+        *{
+            margin:0px;
+            background-color: #28223F;
+            color: white;
+        }
+        .contianer{
+            margin: auto;
+            display: flex;
+            width: 80vw;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            margin-top: 50px;
+
+        }
+        .card{
+            background-color: #5b5869;
+            box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+            padding: 10px;
+            border-radius: 15px;
+        }
+        .pic{
+            border-radius: 25px;
+        }
+        img{
+            height: 370px;
+            width: 320px;
+            border-radius: 25px;
+        }
+        .details{
+            display: flex;
+            justify-content: center;
+            gap:15px;
+            margin-top: 20px;
+            /* background-color: #45424e; */
+            border-radius: 20px;
+            padding: 10px;
+        }
+        button{
+            font-size: 1.7rem;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="contianer">
+        <div class="card">
+            <div class="pic">
+                <img src="./img/calculator.png" alt="calculator">
+            </div>
+            <div class="details">
+                <h1>Calculator</h1>
+                <button  onclick="window.location.href='./calculator.html';">visit me</button>
+            </div>
+            <div class="skill">
+        
+            </div>
+        </div>
+        <div class="card">
+            <div class="pic">
+                <img src="./img/downlaoding-status-bar.png" alt="downlaoding-status-bar">
+            </div>
+            <div class="details">
+                <h1>DLStatusBar</h1>
+                <button  onclick="window.location.href='./downloadProgratingBar.html';">visit me</button>
+            </div>
+            <div class="skill">
+        
+            </div>
+        </div>
+        <div class="card">
+            <div class="pic">
+                <img src="./img/tic-tak-toe.png" alt="tic-tak-toe">
+            </div>
+            <div class="details">
+                <h1>Tic-Tak-Toe</h1>
+                <button  onclick="window.location.href='./TikTakToe.html';">visit me</button>
+            </div>
+            <div class="skill">
+        
+            </div>
+        </div>
+        <div class="card">
+            <div class="pic">
+                <img src="./img/to-do.png" alt="to-do-app">
+            </div>
+            <div class="details">
+                <h1>To-Do-App</h1>
+                <button  onclick="window.location.href='./to-do-app.html';">visit me</button>
+            </div>
+            <div id="skill">
+        
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Tik Tak Toe</title>
+    <meta name="viewport"  content=" width=device-width, scale=1.0" >
+    <style>
+    *{
+      margin:0px;
+      background-color:#487a7a;
+    }
+    #container{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1{
+      margin:10px;
+      font-size:3rem;
+      /* text-align:center; */
+    }
+    h2{
+      text-align:center;
+      font-size:1.5rem;
+    }
+    #bt{
+      display:grid;
+      height:400px;
+      width:400px;
+      /* margin:auto; */
+      grid-template-columns: auto auto auto;
+      
+    }
+    #Ngame{
+    color: azure;
+    font-size:2.3rem;
+    border-radius:12px;
+    /* margin-left:40%; */
+    margin-top:20px;
+    background-color: #27391C;
+    }
+    #bt > button{
+      background-color:#fdfebe;
+      border-radius: 20px;
+      width:120px;
+      height:120px;
+      font-size:3rem;
+      
+    }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+     <h1>Tik Tak Toe</h1>
+      <div id ="bt">
+        <button try="2"></button>
+        <button try="3"></button>
+        <button try="4"></button>
+        <button try="5"></button>
+        <button try="6"></button>
+        <button try="7"></button>
+        <button try="8"></button>
+        <button try="9"></button>
+        <button try="1"></button>
+      </div>
+      <button id="Ngame" onclick="location.reload()">New game</button>
+    </div>
+  </body>
+  <script>
+    let h = document.querySelector("h1");
+    let bd=document.querySelector("#bt");
+    let Ngame= document.querySelector("#newGame");
+    
+   
+    
+    let turn =true;
+    let player1=[];
+    let player2=[];
+    let win=[ [1,2,3],[1,5,9],[1,4,7],[2,5,8],[3,6,9],[3,5,7],[4,5,6],[7,8,9] ];
+    let check= 0;
+    
+    
+     function addh(player)
+    {
+    let hh= document.createElement("h2");
+          hh.innerHTML=`${player} is win`
+          hh.style.margin="20px"
+          hh.style.color="#FFEB00"
+          hh.style.fontSize="2.5rem";
+          h.after(hh);
+    }
+    
+    function checkWin(e,player){
+      let won = 0;
+       for( let i = 0; i<8 ; i++ ){
+          let x = win[i][0];
+          let y= win[i][1];
+          let z= win[i][2];
+          for( let j = 0; j<player.length; j++){
+            if( player[j] == x || player[j] == y || player[j] == z ){
+              won++;
+              }
+            }
+           if( won == 3) {
+           return true;
+           
+           }
+           else won = 0;
+          };
+          return false;
+    }
+    
+    bt.addEventListener('click',function(e){
+    
+     
+      if ( turn == true  && e.target.type=="submit"){
+        e.target.innerHTML="X";
+        turn = !turn;
+        e.target.disabled= true;
+        e.target.style.color="red";
+        player1.push(Number(e.target.attributes.try.value));
+        check++;
+        if( check > 2){
+          if(checkWin(e,player1) ){
+          e.target.parentElement.style.pointerEvents ="none";
+          addh("player 1 (X)")
+          } 
+          console.log(!turn);
+          
+          
+        } 
+        
+      }else if ( ( turn == false  && e.target.type=="submit")){
+        e.target.innerHTML="O";
+        turn = !turn;
+        e.target.disabled= true;
+        e.target.style.color="red";
+         player2.push(Number(e.target.attributes.try.value));
+         check++;
+        if(check >2 ) {
+          if ( checkWin(e,player2) ) { 
+          addh("player 2 ( O )");
+          e.target.parentElement.style.pointerEvents ="none";
+          }
+        }
+        
+      }
+   
+    });
+  
+
+  </script>
+</html>
+
+

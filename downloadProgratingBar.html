@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Donwload</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">   
+		<style>
+		  *{
+		    margin:0px;
+		    background-color:#476f95;
+		    color:white;
+		  }
+		
+		 h1{
+		    text-align:center;
+		    font-size:2.5rem; 
+		    margin:20px;
+		 }
+		  #container{
+		    display:flex;
+		    flex-direction:column;
+		    align-items:center;
+		    font-size:2rem;
+		    
+		  }
+		  button{
+		  font-size:2rem;
+		  margin:20px;
+		  border-radius: 15px;
+		  padding: 8px;
+		  }
+		 p{
+		 display:none;
+		 margin:3%;
+		 }
+		 #progress-bar{
+		  margin:30px;
+		  display:none;
+		  border: 5px solid azure;
+		  width:20vw;
+		  height:3vh;
+		  border-radius: 17px;
+		 }
+    #progress-fill-up{
+      width:0%;
+      height:100%;
+      background-color:green;
+      justify-content:center;
+	  border-radius: 17px;
+    }
+		 
+    </style>
+	</head>
+	<body>
+		<h1>Download Progress Bar</h1>
+		
+		<div id="container">
+		    <button>Download</button>
+		    <p id="donwloading-status">downloading... </p>
+		    <div id="progress-bar">
+		      <div id="progress-fill-up"></div>
+		    </div>
+			<div id="pic">
+				
+			</div>
+	
+		</div>
+	</body>
+	<script>
+		 
+	  let p = document.querySelector("p")
+	  let pbar = document.querySelector("#progress-bar")
+	 let f_bar= document.querySelector("#progress-fill-up")
+	 let pic = document.querySelector("#pic")
+
+	 
+	 document.querySelector("button")
+	 .addEventListener('click',function(e){
+	 
+	  p.style.display='block'
+	  pbar.style.display='block'
+	  
+	  while (pic.firstChild) {
+            pic.removeChild(pic.firstChild);
+        }
+	  
+	  fetch('https://fetch-progress.anthum.com/30kbps/images/sunrise-baseline.jpg')
+	  .then((response)=>{
+	    if(!response.ok){
+	      throw new Error(`HTTP error! status:${response.status}`);
+	    }
+	    else{
+	    let contentLength= response.headers.get('content-length')
+	    let loaded =0;
+	    
+	      return new Response (
+	        new ReadableStream({
+	          
+	          start(controller){
+	            let reader = response.body.getReader();
+	            read();
+	            
+	            function read(){
+	              reader.read()
+	              .then((progressEvent)=>{
+	                if(progressEvent.done){
+	                  controller.close();
+	                }
+	                
+	                loaded +=progressEvent.value.byteLength;
+	                percentageComplete=Math.round(loaded/contentLength*100)+"%";
+	                f_bar.style.width=percentageComplete;
+	                p.innerHTML =`Downloading completed. ${percentageComplete}`;
+	                //console.log(percentageComplete)
+	               controller.enqueue(progressEvent.value)
+	                read()
+	              })
+	            }
+	          }
+	          
+	        })
+	      )
+	    }
+	  }).then((response)=>response.blob())
+	  .then((blob)=>{
+	    let img = new Image();
+	    img.src= URL.createObjectURL(blob)
+	    // document.body.after(img)
+	    pic.appendChild(img)
+	    p.style.display='none';
+	    pbar.style.display='none';
+	  })
+	  .catch((error)=>{
+	    alert(error);
+	  })
+	 
+	 })
+	  
+  </script>
+</html>
+
+

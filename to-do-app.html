@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>to-to-app</title>
+    <meta name="viewport" content=" width=device-width, initial-scale=1.0">
+    
+    <style>
+      body{
+        margin-left:10%;
+        width:60%;
+        height:90; 
+      }
+      button{
+        font-size:1.5rem;
+        margin: 5px;
+      }
+      h1, #input, #add{
+        font-size:2rem;
+        margin-bottom: 20px;
+        
+      }
+      #incomp, #comp{
+        height:30vh;
+        margin: 10px;
+        font-size:2rem;
+        margin:5px;
+        
+      }
+     
+    </style>
+  </head>
+  <body style="background-color:lightblue">
+  
+    <h1>To Do App</h1>
+    
+    <input type="text" id="input" name="input">
+    <button id="add">add</button>
+     <h1>Incompleted</h1>
+      <hr>
+      <div id = "incomp"></div>
+    <h1>Completed</h1>
+      <hr>
+      <div id = "comp"></div>
+  </body>
+    <script>
+      let incomp= document.querySelector("#incomp");
+      let comp = document.querySelector("#comp");
+      let ip = document.querySelector("#input");
+      let addBt = document.querySelector("#add");
+      let bd = document.querySelector("body");
+      
+      window.onload =function(){
+      ip.value="";
+    }
+     
+     function add(e){
+        incomp.innerHTML +=
+        `<div>
+          <input type="checkbox">
+          <span> ${ip.value} </span>
+          <button> delete </button>
+        </div>`;
+        ip.value=""
+    }
+    
+    function del(e){
+      e.target.parentElement.remove();
+    } 
+   
+   function swap (e){
+       if( e.target.tagName =="BUTTON"){
+          del(e)
+      } else if( e.target.parentElement.parentElement.id == "incomp" ){
+        comp.innerHTML += 
+        `<div>
+          <input type="checkbox" checked>
+          <span> ${e.target.nextElementSibling.innerHTML} </span>
+          <button>delete</button>
+        </div>`
+        del(e);
+       
+      }else if(e.target.parentElement.parentElement.id == "comp") {
+       incomp.innerHTML += `<div>
+          <input type="checkbox">
+          <span> ${e.target.nextElementSibling.innerHTML} </span>
+          <button>delete</button>
+        </div>`
+        del(e);
+      }
+      
+    }
+    
+     bd.addEventListener('keypress',function (e){
+     
+      if( e.key == "Enter"){
+          add(e);
+      }else{
+      e.stopPropagartion();
+      ip.value +=`${e.key}`
+     }
+      
+     
+    });
+    addBt.addEventListener('click',add); 
+    incomp.addEventListener('click',swap);
+    comp.addEventListener('click',swap);
+   
+    
+    </script>
+</html>

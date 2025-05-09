@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        html{
+           margin: 0px;
+           background-color:#C9E4EB;
+        }
+        h1{
+            font-size: 3rem;
+            text-align: center;
+            color: rgb(7, 26, 131);
+        }
+        #calbody{
+            background-color: #282a32 ;
+            height: 550px;
+            width: 370px;
+            margin: auto;
+            padding: 10px;
+            border-radius: 13px;
+            overflow:auto;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6), 0 6px 20px 0 rgba(0, 0, 0, 0.40);
+        }
+        #display{
+            background-color:#1f2027;
+            overflow: auto;
+            height:20%;
+            font-size:2.1rem ;
+            margin-bottom:15px;
+            border-radius: 10px;
+        }
+        #bt{
+            padding: 5px;
+            display: grid;
+            height: 75%;
+            grid-template-columns: auto auto auto auto;
+            grid-gap:15px;
+        }
+        button{
+          background-color: #2b2d35;
+            font-weight: bold;
+            font-size: 2rem;
+            border-radius: 15px;
+            color:white;
+            
+        }
+        p{
+        margin:15px;
+        color:white;
+        background-color: #1f2027;
+        }
+       input{
+        color: white;
+        border: none;
+        outline: none;
+        margin:0px;
+        width:97.5%;
+        height: ;
+        font-size:2rem;
+        background-color:#1f2027; 
+       }
+       .brown{
+        color: #FFA55D;
+       }
+       .sky{
+        color: #3D90D7;
+        font-size: 1.4rem;
+       }
+       
+    </style>
+</head>
+<body>
+    <h1>Basic calculator</h1>
+    <div id="calbody">
+       <div id = "display">
+        <input type="text" id ="input"></input>
+        <p id="output" style="text-align:right"></p>
+       </div>
+        <div id="bt">
+            <button class="sky" ">AC</button>
+            <button class="sky">%</button>
+            <button class="sky" name="del" ><i class="fa-solid fa-delete-left"></i></button>
+            <button class="brown">/</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class="brown">*</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button class="brown">-</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class="brown">+</button>
+            <button>0</button>
+            <button style="font-size: 1.7rem">00</button>
+            <button>.</button>
+            <button class="brown">=</button>
+        </div>
+
+    </div>
+    
+</body>
+    <script>
+    
+    
+    let ip = document.querySelector("#input")
+    let bt= document.querySelector("#bt")
+     let op = document.querySelector("#output");
+    
+    window.onload =function(){
+      ip.value=""
+    }
+    
+   
+     bt.addEventListener('click',function(e){
+      
+     if( e.target.innerHTML =="="){
+          op.innerHTML= `${eval(ip.value)}`
+          
+        } else if(e.target.innerHTML =="AC" ){
+          ip.value="";
+          op.innerHTML="";
+        } else if(e.target.name == "del"){
+          ip.value= `${ip.value.slice(0,-1)}`
+        }
+      else{
+        console.log(e.target.innerHTML)
+      ip.value+=`${ e.target.innerHTML.length >= 3 ? "":e.target.innerHTML }`
+      } 
+     })
+      
+      addEventListener('keypress',function(e){
+      
+      e.preventDefault();
+      
+      if( (Number(e.key) >= 0 && Number(e.key) <= 9 ) || e.key == "/" || e.key == "*" ||
+        e.key == "+"|| e.key == "-" || e.key == ")"|| e.key == "("|| e.key == "%" ||
+        e.key == "." ){
+        ip.value +=e.key 
+      }
+        else if( e.key =="Enter"){
+          op.innerHTML= `${eval(ip.value)}`  
+        } else if(e.key =="c"|| e.key =="C" ){
+          ip.value="";
+          op.innerHTML="";
+        }
+      })
+    
+    
+       
+    </script>
+</html>
